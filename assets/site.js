@@ -16,7 +16,7 @@ const salons = {
     name: "Barshie Nails",
     displayName: "Barshie Nails — Imus",
     location: "Imus, Cavite",
-    address: "Barshie Nails, Camella Bucandala Phase 4, Block 13, Lot 12, Imus, Cavite, Philippines, 4103.",
+    address: "Camella Bucandala Phase 4, Block 13, Lot 5, Alapan 2B, Imus, Cavite.",
     owner: "Miss Ann Barshie",
     apprentice: "Miss Trina",
     specialty: "Certified Nail Technician · Dry Manicure & Pedicure Specialist",
@@ -24,7 +24,7 @@ const salons = {
     tel: "+639152352352",
     facebook: "https://www.facebook.com/profile.php?id=61590840527543",
     messenger: "https://m.me/61590840527543",
-    map: "14.29451,120.87699",
+    map: "Camella Bucandala Phase 4, Block 13, Lot 5, Alapan 2B, Imus, Cavite",
     hours: "10:00 AM – 6:00 PM",
     logo: "",
     intro: "A detail-led nail studio in Imus led by Miss Ann Barshie, with dry manicure and pedicure services crafted with care.",
@@ -294,6 +294,7 @@ function salonHero(salon) {
       <h1>${salon.key === "barshie" ? "A little art.<br><em>A lot of care.</em>" : salon.key === "mherie" ? "Your moment<br>of <em>luxe.</em>" : "Come as you are.<br><em>Leave feeling lovely.</em>"}</h1>
       <p class="salon-hero-intro">${escapeHTML(salon.intro)}</p>
       <a class="button ${salon.key === "unailed" ? "button-light" : "button-dark"}" href="${salonURL(salon, "services/")}">Explore services <span aria-hidden="true">↗</span></a>
+      ${salon.key === "barshie" ? `<a class="button button-outline" href="${salon.messenger}" target="_blank" rel="noopener noreferrer">Ask about nail training <span aria-hidden="true">↗</span></a>` : ""}
     </div>
     <div class="salon-hero-visual">
       <img class="salon-hero-image" src="${imageURL(salon.hero)}" alt="${escapeHTML(salon.heroAlt)}" fetchpriority="high">
