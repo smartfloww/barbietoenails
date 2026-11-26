@@ -61,12 +61,24 @@ const salons = {
     owner: "Ms Mherie",
     facebook: "https://www.facebook.com/mherieluxe.nails",
     messenger: "https://m.me/mherieluxe.nails",
+    booking: "https://www.canva.com/design/DAHGIbxO6hM/rMsp4pPlz2zFTwLQK62hzw/view",
     map: "Mherie Luxe Nails, 274 Padre Rada St, Tondo, Manila, Metro Manila, Philippines",
     hours: "10:00 AM – 6:00 PM",
     logo: "mherie-luxe-nails-logo.jpeg",
     intro: "A Manila nail studio by Ms Mherie, offering thoughtfully finished dry manicure, dry pedicure, and nail art services.",
-    hero: "portfolio.jpeg",
-    heroAlt: "A portfolio of manicure styles in varied colors and finishes",
+    hero: "mherieluxr-pics/crops/hero-hand-4.jpg",
+    heroAlt: "A gold and neutral manicure by Mherie Luxe Nails",
+    gallery: [
+      { file: "mherieluxr-pics/crops/gallery-hand-1.jpg", alt: "Neutral manicure with gold nail details" },
+      { file: "mherieluxr-pics/crops/gallery-hand-2.jpg", alt: "White and gold manicure close-up" },
+      { file: "mherieluxr-pics/crops/gallery-hand-6.jpg", alt: "Blush and silver manicure detail" },
+      { file: "mherieluxr-pics/crops/gallery-hand-3.jpg", alt: "Blue and floral nail art" },
+      { file: "mherieluxr-pics/crops/gallery-hand-5.jpg", alt: "Neutral French manicure" },
+      { file: "mherieluxr-pics/crops/gallery-salon-1.jpg", alt: "Mherie Luxe Nails manicure studio" },
+      { file: "mherieluxr-pics/crops/gallery-pedicure.jpg", alt: "Clean neutral pedicure" },
+      { file: "mherieluxr-pics/crops/gallery-salon-2.jpg", alt: "Mherie Luxe Nails treatment area" },
+    ],
+    locationPhoto: "mherieluxr-pics/crops/location-technician.jpg",
     notice: "Final bill may vary if you have special designs in your nail inspiration. Kindly send your nail inspiration to know your exact bill.",
     services: [
       {
@@ -179,7 +191,8 @@ function header(salon = null) {
 
 function contactLinks(salon, variant = "") {
   return `<div class="contact-links ${variant}">
-    <a class="button button-dark" href="${salon.messenger}" target="_blank" rel="noopener noreferrer">Message the studio <span aria-hidden="true">↗</span></a>
+    ${salon.booking ? `<a class="button button-outline" href="${salon.booking}" target="_blank" rel="noopener noreferrer">View available slots <span aria-hidden="true">↗</span></a>` : ""}
+    <a class="button button-dark" href="${salon.messenger}" target="_blank" rel="noopener noreferrer">${salon.booking ? "Message to book" : "Message the studio"} <span aria-hidden="true">↗</span></a>
     ${salon.tel ? `<a class="button button-outline" href="tel:${salon.tel}">Call ${escapeHTML(salon.phone)}</a>` : ""}
     <a class="text-link" href="${salon.facebook}" target="_blank" rel="noopener noreferrer">Visit Facebook <span aria-hidden="true">↗</span></a>
   </div>`;
@@ -293,8 +306,11 @@ function salonHero(salon) {
     <div class="salon-hero-copy">${brand}<p class="eyebrow">${escapeHTML(salon.location)} <span>·</span> Independent beauty studio</p>
       <h1>${salon.key === "barshie" ? "A little art.<br><em>A lot of care.</em>" : salon.key === "mherie" ? "Your moment<br>of <em>luxe.</em>" : "Come as you are.<br><em>Leave feeling lovely.</em>"}</h1>
       <p class="salon-hero-intro">${escapeHTML(salon.intro)}</p>
-      <a class="button ${salon.key === "unailed" ? "button-light" : "button-dark"}" href="${salonURL(salon, "services/")}">Explore services <span aria-hidden="true">↗</span></a>
-      ${salon.key === "barshie" ? `<a class="button button-outline" href="${salon.messenger}" target="_blank" rel="noopener noreferrer">Ask about nail training <span aria-hidden="true">↗</span></a>` : ""}
+      <div class="hero-actions">
+        <a class="button ${salon.key === "unailed" ? "button-light" : "button-dark"}" href="${salonURL(salon, "services/")}">Explore services <span aria-hidden="true">↗</span></a>
+        ${salon.key === "mherie" && salon.booking ? `<a class="button button-outline" href="${salon.booking}" target="_blank" rel="noopener noreferrer">View available slots <span aria-hidden="true">↗</span></a>` : ""}
+        ${salon.key === "barshie" ? `<a class="button button-outline" href="${salon.messenger}" target="_blank" rel="noopener noreferrer">Ask about nail training <span aria-hidden="true">↗</span></a>` : ""}
+      </div>
     </div>
     <div class="salon-hero-visual">
       <img class="salon-hero-image" src="${imageURL(salon.hero)}" alt="${escapeHTML(salon.heroAlt)}" fetchpriority="high">
@@ -325,15 +341,15 @@ function salonHomePage(salon) {
 
       <section class="salon-gallery-section">
         <div class="gallery-heading"><div><p class="eyebrow">Around the studio</p><h2>A little look<br><em>at the lovely.</em></h2></div><p>Browse the shared collection of beauty details and studio moments.</p></div>
-        ${gallery()}
+        ${gallery(salon.gallery || photographs)}
       </section>
 
       <section class="salon-location">
-        <div class="location-photo"><img src="${imageURL(salon.key === "mherie" ? "studio-details.jpeg" : salon.key === "unailed" ? "working-area.jpeg" : "technician-at-work.jpeg")}" alt="A beauty appointment in a welcoming studio" loading="lazy"><span>Find your way</span></div>
+        <div class="location-photo"><img src="${imageURL(salon.locationPhoto || (salon.key === "unailed" ? "working-area.jpeg" : "technician-at-work.jpeg"))}" alt="A beauty appointment in Mherie Luxe Nails" loading="lazy"><span>Find your way</span></div>
         <div class="location-note"><p class="eyebrow">Your studio, nearby</p><h2>Meet us in<br><em>${escapeHTML(salon.location)}.</em></h2><p>${escapeHTML(salon.address)}</p><a class="button button-outline" href="${salonURL(salon, "location/")}">Studio details &amp; directions <span aria-hidden="true">↗</span></a></div>
       </section>
 
-      <section class="appointment-section"><div class="appointment-flower" aria-hidden="true"></div><div><p class="eyebrow">Whenever you’re ready</p><h2>Let’s make it<br><em>your next favorite.</em></h2><p>Ask a question, share your inspiration, or get in touch to arrange an appointment.</p></div>${contactLinks(salon)}</section>
+      <section class="appointment-section"><div class="appointment-flower" aria-hidden="true"></div><div><p class="eyebrow">Whenever you’re ready</p><h2>Let’s make it<br><em>your next favorite.</em></h2><p>${salon.booking ? "Check the available slots, then send the studio a message to reserve your preferred time." : "Ask a question, share your inspiration, or get in touch to arrange an appointment."}</p></div>${contactLinks(salon)}</section>
     </main>
     ${footer(salon)}`;
   initNavigation();

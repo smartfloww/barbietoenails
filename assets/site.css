@@ -136,6 +136,7 @@ button { font: inherit; }
 .salon-hero-barshie .salon-hero-inset { position: absolute; bottom: 8%; left: -12%; width: 37%; height: 42%; border: 9px solid var(--blush); object-fit: cover; }
 .salon-hero-mherie { background: #f2e8de; }
 .salon-hero-mherie .salon-hero-copy { padding-top: 36px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .salon-hero-mherie .salon-hero-visual { min-height: 638px; padding: 34px 34px 34px 0; background: #e3c9c4; }
 .salon-hero-mherie .salon-hero-image { border-radius: 48% 48% 0 0; }
 .salon-hero-unailed { grid-template-columns: 1.04fr .96fr; background: #57363d; color: var(--ivory); }
